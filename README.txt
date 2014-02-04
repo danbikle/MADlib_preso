@@ -17,7 +17,7 @@ The basic steps are listed below:
   - Create a table to hold the data
   - Load the data into the table
   - Build some vectors for MADlib
-  - Let MADlib learn
+  - Train MADlib 
   - Let MADlib predict
   - Report on predictions
 

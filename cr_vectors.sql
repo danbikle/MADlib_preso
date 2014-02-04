@@ -43,6 +43,34 @@ FROM vec2
 ORDER BY ydate
 ;
 
+-- Create training vectors:
+DROP   TABLE training_vectors;
+CREATE TABLE training_vectors AS
+SELECT
+ydate
+,n1dg
+,prev_1st_n1dg
+,prev_2nd_n1dg
+yvalue
+FROM my_vectors
+WHERE ydate < '2014-01-01'
+ORDER BY ydate
+;
+
+-- Create 'Out of Sample' vectors to-be-predicted and then studied:
+DROP   TABLE oos_vectors;
+CREATE TABLE oos_vectors AS
+SELECT
+ydate
+,n1dg
+,prev_1st_n1dg
+,prev_2nd_n1dg
+yvalue
+FROM my_vectors
+WHERE ydate > '2014-01-01'
+ORDER BY ydate
+;
+
 -- Study distributions:
 
 SELECT yvalue, COUNT(yvalue) FROM my_vectors GROUP BY yvalue;
