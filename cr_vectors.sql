@@ -53,7 +53,7 @@ ydate
 ,prev_2nd_n1dg
 ,yvalue
 FROM my_vectors
-WHERE ydate < '2014-01-01'
+WHERE ydate < '2013-01-01'
 ORDER BY ydate
 ;
 
@@ -67,7 +67,7 @@ ydate
 ,prev_2nd_n1dg
 ,yvalue
 FROM my_vectors
-WHERE ydate > '2014-01-01'
+WHERE ydate > '2013-01-01'
 ORDER BY ydate
 ;
 

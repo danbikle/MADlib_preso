@@ -29,6 +29,8 @@
 -- optimizer defaults to irls (Iteratively reweighted least squares )
 -- tolerance defaults to 0.0001
 
+DROP TABLE IF EXISTS my_out_table;
+
 SELECT logregr_train( 'training_vectors',
 'my_out_table',
 'yvalue',
