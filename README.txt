@@ -10,6 +10,9 @@ The title of the presentation is:
 
 The basic steps are listed below:
 
+  - mkdir ~/mlp/
+  - mkdir ~/tmp/
+  - cd    ~/mlp/
   - Download data from Yahoo
   - Create a table to hold the data
   - Load the data into the table
