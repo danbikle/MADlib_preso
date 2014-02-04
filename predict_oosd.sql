@@ -26,6 +26,8 @@ WHERE probability > 0.55
 
 SELECT COUNT(n1dg),ROUND(AVG(n1dg),5) avg_n1dg FROM oosd_predictions;
 
+SELECT COUNT(n1dg),ROUND(AVG(n1dg),5) avg_n1dg FROM oosd_predictions WHERE probability > 0.51;
+
 SELECT COUNT(n1dg),ROUND(AVG(n1dg),5) avg_n1dg FROM oosd_predictions WHERE probability > 0.52;
 
 SELECT COUNT(n1dg),ROUND(AVG(n1dg),5) avg_n1dg FROM oosd_predictions WHERE probability > 0.53;

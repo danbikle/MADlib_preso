@@ -1,0 +1,21 @@
+~/mlp/results_discussion.txt
+
+This model lacks the ability to predict down days.
+
+This is somewhat expected because the model was built after
+I noticed Mean Reversion behavior and used that analysis
+to design my training vectors.
+
+Mean Reversion works better at predicting up days than at predicting down days.
+
+Also, the vector length I'm using in this model is only 2.
+
+And, the only 'pure' information used in my vector design is price.
+
+I ignore other sources of information like volume, sentiment,
+calendar events, interest rates, energy prices, currency behavior, and media events.
+
+The good news is that I see a strong correlation between prediction
+confidence levels and corresponding gains.
+
+For example when confidence is at 
