@@ -4,9 +4,8 @@ This is a screen dump of my create vectors script.
 
 The report at the end shows that the market exhibits Mean-Reversion.
 
-
-dan@madlibsvm ~/mlp
-dan@madlibsvm ~/mlp
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
 dan@madlibsvm ~/mlp $ ./psqlmad.bash -f cr_vectors.sql
 --
 -- ~/mlp/cr_vectors.sql
@@ -45,19 +44,49 @@ CREATE TABLE my_vectors AS
 SELECT
 ydate
 ,n1dg
-,lag(n1dg,1,NULL) OVER (ORDER BY ydate) prev_1st_n1dg
-,lag(n1dg,2,NULL) OVER (ORDER BY ydate) prev_2nd_n1dg
-,CASE WHEN n1dg <= 0 THEN 0 ELSE 1 END  yvalue
+,lag(n1dg,1,NULL) OVER (ORDER BY ydate) n1dg_today
+,lag(n1dg,2,NULL) OVER (ORDER BY ydate) n1dg_yesterday
+,CASE WHEN n1dg <= 0.0007 THEN false ELSE true END  yvalue
 FROM vec2
 ORDER BY ydate
 ;
 SELECT 5292
+-- Create training vectors:
+DROP   TABLE training_vectors;
+DROP TABLE
+CREATE TABLE training_vectors AS
+SELECT
+ydate
+,n1dg
+,n1dg_today
+,n1dg_yesterday
+,yvalue
+FROM my_vectors
+WHERE ydate < '2013-01-01'
+ORDER BY ydate
+;
+SELECT 5018
+-- Create 'Out of Sample' vectors to-be-predicted and then studied:
+DROP   TABLE oos_vectors;
+DROP TABLE
+CREATE TABLE oos_vectors AS
+SELECT
+ydate
+,n1dg
+,n1dg_today
+,n1dg_yesterday
+,yvalue
+FROM my_vectors
+WHERE ydate > '2013-01-01'
+ORDER BY ydate
+;
+SELECT 274
 -- Study distributions:
 SELECT yvalue, COUNT(yvalue) FROM my_vectors GROUP BY yvalue;
  yvalue | count 
 --------+-------
-      1 |  2801
-      0 |  2491
+ f      |  2679
+ t      |  2613
 (2 rows)
 
 SELECT 
@@ -75,40 +104,41 @@ FROM my_vectors
 -- Are the tails interesting?
 -- English:
 -- Count the yvalues,
--- Where yesterday was down by more than 1-std-deviation,
--- And day before yesterday was down by more than 1-std-deviation
+-- Where today was down by more than 1-std-deviation,
+-- And yesterday was down by more than 1-std-deviation
 SELECT 
 yvalue
 ,COUNT(yvalue)
 FROM my_vectors
-WHERE prev_1st_n1dg < -0.012
-AND   prev_2nd_n1dg < -0.012
+WHERE n1dg_today     < -0.012
+AND   n1dg_yesterday < -0.012
 GROUP BY yvalue
 ;
  yvalue | count 
 --------+-------
-      1 |    57
-      0 |    33
+ f      |    34
+ t      |    56
 (2 rows)
 
 -- English:
 -- Count the yvalues,
--- Where yesterday was up by more than 1-std-deviation,
--- And day before yesterday was up by more than 1-std-deviation
+-- Where today was up by more than 1-std-deviation,
+-- And yesterday was up by more than 1-std-deviation
 SELECT 
 yvalue
 ,COUNT(yvalue)
 FROM my_vectors
-WHERE prev_1st_n1dg > 0.012
-AND   prev_2nd_n1dg > 0.012
+WHERE n1dg_today     > 0.012
+AND   n1dg_yesterday > 0.012
 GROUP BY yvalue
 ;
  yvalue | count 
 --------+-------
-      1 |    30
-      0 |    48
+ f      |    48
+ t      |    30
 (2 rows)
 
-dan@madlibsvm ~/mlp
-dan@madlibsvm ~/mlp
-dan@madlibsvm ~/mlp
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+

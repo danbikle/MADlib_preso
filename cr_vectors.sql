@@ -36,9 +36,9 @@ CREATE TABLE my_vectors AS
 SELECT
 ydate
 ,n1dg
-,lag(n1dg,1,NULL) OVER (ORDER BY ydate) prev_1st_n1dg
-,lag(n1dg,2,NULL) OVER (ORDER BY ydate) prev_2nd_n1dg
-,CASE WHEN n1dg <= 0 THEN false ELSE true END  yvalue
+,lag(n1dg,1,NULL) OVER (ORDER BY ydate) n1dg_today
+,lag(n1dg,2,NULL) OVER (ORDER BY ydate) n1dg_yesterday
+,CASE WHEN n1dg <= 0.0007 THEN false ELSE true END  yvalue
 FROM vec2
 ORDER BY ydate
 ;
@@ -49,8 +49,8 @@ CREATE TABLE training_vectors AS
 SELECT
 ydate
 ,n1dg
-,prev_1st_n1dg
-,prev_2nd_n1dg
+,n1dg_today
+,n1dg_yesterday
 ,yvalue
 FROM my_vectors
 WHERE ydate < '2013-01-01'
@@ -63,8 +63,8 @@ CREATE TABLE oos_vectors AS
 SELECT
 ydate
 ,n1dg
-,prev_1st_n1dg
-,prev_2nd_n1dg
+,n1dg_today
+,n1dg_yesterday
 ,yvalue
 FROM my_vectors
 WHERE ydate > '2013-01-01'
@@ -87,30 +87,30 @@ FROM my_vectors
 
 -- English:
 -- Count the yvalues,
--- Where yesterday was down by more than 1-std-deviation,
--- And day before yesterday was down by more than 1-std-deviation
+-- Where today was down by more than 1-std-deviation,
+-- And yesterday was down by more than 1-std-deviation
 
 SELECT 
 yvalue
 ,COUNT(yvalue)
 FROM my_vectors
-WHERE prev_1st_n1dg < -0.012
-AND   prev_2nd_n1dg < -0.012
+WHERE n1dg_today     < -0.012
+AND   n1dg_yesterday < -0.012
 GROUP BY yvalue
 ;
 
 
 -- English:
 -- Count the yvalues,
--- Where yesterday was up by more than 1-std-deviation,
--- And day before yesterday was up by more than 1-std-deviation
+-- Where today was up by more than 1-std-deviation,
+-- And yesterday was up by more than 1-std-deviation
 
 SELECT 
 yvalue
 ,COUNT(yvalue)
 FROM my_vectors
-WHERE prev_1st_n1dg > 0.012
-AND   prev_2nd_n1dg > 0.012
+WHERE n1dg_today     > 0.012
+AND   n1dg_yesterday > 0.012
 GROUP BY yvalue
 ;
 

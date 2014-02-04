@@ -1,0 +1,78 @@
+~/mlp/train_madlib.txt
+
+This file shows output from 
+~/mlp/train_madlib.sql
+
+Notice that my model has only three coefficients.
+
+Too many coefficients leads to over-fitting the model to the training data
+and then poor performance on the out-of-sample data.
+
+
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ ./psqlmad.bash -f train_madlib.sql
+--
+-- ~/mlp/train_madlib.sql
+--
+--
+-- ref:
+-- http://doc.madlib.net/latest/group__grp__logreg.html
+-- The logistic regression training function has the following format:
+-- 
+-- logregr_train( source_table,
+--                out_table,
+--                dependent_varname,
+--                independent_varname,
+--                grouping_cols,
+--                max_iter,
+--                optimizer,
+--                tolerance,
+--                verbose
+--              )
+-- In this script:
+-- source_table is training_vectors
+-- out_table    is my_out_table
+-- dependent_varname is yvalue
+-- independent_varname is ARRAY[1, n1dg_today, n1dg_yesterday]
+-- grouping_cols is ... NULL 
+-- max_iter  is 999
+-- optimizer defaults to irls (Iteratively reweighted least squares )
+-- tolerance defaults to 0.0001
+DROP TABLE IF EXISTS my_out_table;
+DROP TABLE
+SELECT logregr_train( 'training_vectors',
+'my_out_table',
+'yvalue',
+'ARRAY[1,n1dg_today, n1dg_yesterday]',
+NULL,
+999             
+);
+ logregr_train 
+---------------
+ 
+(1 row)
+
+--
+-- rpt, Look at the regression created by MADlib:
+--
+\x on
+Expanded display is on.
+SELECT * FROM my_out_table;
+-[ RECORD 1 ]------------+-------------------------------------------------------------
+coef                     | {-0.0262843725307599,-8.58574517075129,-4.62637428724606}
+log_likelihood           | -3467.7442045575
+std_err                  | {0.0283087367097789,2.32199466750463,2.29912478140281}
+z_stats                  | {-0.928489773324301,-3.69757316453191,-2.01223279600478}
+p_values                 | {0.353153570184336,0.000217670492837013,0.0441954028646328}
+odds_ratios              | {0.974058054865911,0.000186748984680371,0.00979019125141397}
+condition_no             | 84.5876700771092
+num_rows_processed       | 5016
+num_missing_rows_skipped | 2
+num_iterations           | 4
+
+\x off
+Expanded display is off.
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 

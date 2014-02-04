@@ -23,7 +23,7 @@
 -- source_table is training_vectors
 -- out_table    is my_out_table
 -- dependent_varname is yvalue
--- independent_varname is ARRAY[1, prev_1st_n1dg, prev_2nd_n1dg]
+-- independent_varname is ARRAY[1, n1dg_today, n1dg_yesterday]
 -- grouping_cols is ... NULL 
 -- max_iter  is 999
 -- optimizer defaults to irls (Iteratively reweighted least squares )
@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS my_out_table;
 SELECT logregr_train( 'training_vectors',
 'my_out_table',
 'yvalue',
-'ARRAY[1,prev_1st_n1dg, prev_2nd_n1dg]',
+'ARRAY[1,n1dg_today, n1dg_yesterday]',
 NULL,
 999             
 );
