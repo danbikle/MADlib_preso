@@ -38,7 +38,7 @@ ydate
 ,n1dg
 ,lag(n1dg,1,NULL) OVER (ORDER BY ydate) prev_1st_n1dg
 ,lag(n1dg,2,NULL) OVER (ORDER BY ydate) prev_2nd_n1dg
-,CASE WHEN n1dg <= 0 THEN 0 ELSE 1 END  yvalue
+,CASE WHEN n1dg <= 0 THEN false ELSE true END  yvalue
 FROM vec2
 ORDER BY ydate
 ;
@@ -51,7 +51,7 @@ ydate
 ,n1dg
 ,prev_1st_n1dg
 ,prev_2nd_n1dg
-yvalue
+,yvalue
 FROM my_vectors
 WHERE ydate < '2014-01-01'
 ORDER BY ydate
@@ -65,7 +65,7 @@ ydate
 ,n1dg
 ,prev_1st_n1dg
 ,prev_2nd_n1dg
-yvalue
+,yvalue
 FROM my_vectors
 WHERE ydate > '2014-01-01'
 ORDER BY ydate
