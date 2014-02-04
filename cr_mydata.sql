@@ -7,8 +7,7 @@
 DROP   TABLE mydata;
 CREATE TABLE mydata
 (
-tkr VARCHAR(9)
-,ydate   DATE
+ydate   DATE
 ,opn     DECIMAL
 ,mx      DECIMAL
 ,mn      DECIMAL

@@ -11,6 +11,7 @@ cd ~/tmp/
 rm -f SPY.csv
 wget --output-document=SPY.csv  http://ichart.finance.yahoo.com/table.csv?s=SPY 
 ls -la SPY.csv
+grep -v Date SPY.csv > mydata.csv
 
 exit
 
