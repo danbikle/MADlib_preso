@@ -18,4 +18,10 @@ calendar events, interest rates, energy prices, currency behavior, and media eve
 The good news is that I see a strong correlation between prediction
 confidence levels and corresponding gains.
 
-For example when confidence is at 
+For example when confidence is above 0.51,
+I see an average 1 day gain of 0.065%.
+
+when confidence is above 0.54,
+I see an average 1 day gain of 0.094%
+which is 44% higher.
+
