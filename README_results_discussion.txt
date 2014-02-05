@@ -19,7 +19,9 @@ and the training data came from 1993-01-29 to 2012-12-31.
 
 SPY went up over 20% during the 13 month period after 2013-01-01.
 
-This is an unusually large gain.
+This is an unusually large gain:
+
+http://www.simplestockinvesting.com/SP500-historical-real-total-returns.htm
 
 So, when the market returns to more usual behavior,
 the model should still be sending out negative predictions.
