@@ -3,7 +3,7 @@
 I use this file to display information about the distribution of
 annual gains of SPY for 1994 to end of 2013.
 
-SQL makes it easy to match every day to a day exactly one year in the past.
+SQL makes it easy to match every day to a day exactly one year in the future.
 
 Once I make that match, I calculate the gain.
 
