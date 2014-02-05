@@ -1,0 +1,45 @@
+~/mlp/annual_gain_dist.txt
+
+I use this file to display information about the distribution of
+annual gains of SPY for 1994 to end of 2013.
+
+SQL makes it easy to match every day to a day exactly one year in the past.
+
+Once I make that match, I calculate the gain.
+
+Once I have that gain, I ask for min, avg, max, and standard deviation.
+
+This is a bit different than matching the first day in January to the last day
+in December and reporting on that gain.
+
+The results are similar though.
+
+
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ ./psqlmad.bash -f annual_gain_dist.sql
+--
+-- ~/mlp/annual_gain_dist.sql
+--
+SELECT
+MIN(annual_gain) min_annual_gain
+,AVG(annual_gain) avg_annual_gain
+,MAX(annual_gain) max_annual_gain
+,STDDEV(annual_gain) stddev_annual_gain
+FROM 
+(
+SELECT
+100 * (LEAD(closing_price,251,NULL) OVER (ORDER BY ydate)
+       - closing_price)
+       / closing_price AS annual_gain
+FROM mydata
+) sq
+;
+   min_annual_gain    |    avg_annual_gain     |   max_annual_gain   |             stddev_annual_gain              
+----------------------+------------------------+---------------------+---------------------------------------------
+ -47.6514257961562478 | 8.40169376206382098999 | 67.7727205990309793 | 18.1657549784232109241076744484916236711159
+(1 row)
+
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
