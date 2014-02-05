@@ -1,4 +1,4 @@
-~/mlp/results_discussion.txt
+~/mlp/README_results_discussion.txt
 
 For a model with only three coefficents, I am pleased with its performance.
 
@@ -8,13 +8,33 @@ As I wrote this, I calculated accuracy to be
 
 The high number of false negatives in the confusion matrix concerns me.
 
-I am very pleased with the average gains associated with the positive predictions:
+But perhaps it could be argued that the false negatives are both expected and good.
+
+Why?
+
+Because the out of sample data was strange.
+
+The out of sample data was a 13 month period after 2013-01-01
+and the training data came from 1993-01-29 to 2012-12-31.
+
+SPY went up over 20% during the 13 month period after 2013-01-01.
+
+This is an unusually large gain.
+
+So, when the market returns to more usual behavior,
+the model should still be sending out negative predictions.
+
+And I expect a higher percentage of them to be true negative predictions.
+
+About the positive predictions, I am very pleased with the average
+gains associated with the positive predictions:
 
 I see 62 positive predictions with avg_tomorrows_n1dg of 0.00230
 which is 340% higher than the average gain of 0.00067 for the 273 out-of-sample data observations.
 
-Also note that 0.00067 is a very sweet gain.
-It corresponds to a 20% gain of S&P-500 over the 13 month period starting 2013-01-01.
+Also note that average gain of 0.00067, is a very sweet gain.
+
+It corresponds to the  20% gain of S&P-500 I mentioned earlier.
 
 Further note, that most money managers cannot beat the S&P-500.
 
