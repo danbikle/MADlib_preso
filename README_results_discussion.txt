@@ -12,9 +12,9 @@ But perhaps it could be argued that the false negatives are both expected and go
 
 Why?
 
-Because the out of sample data was strange.
+Because the out-of-sample data was strange.
 
-The out of sample data was a 13 month period after 2013-01-01
+The out-of-sample data was a 13 month period after 2013-01-01
 and the training data came from 1993-01-29 to 2012-12-31.
 
 SPY went up over 20% during the 13 month period after 2013-01-01.
@@ -48,7 +48,7 @@ dan@madlibsvm ~/mlp $ ./psqlmad.bash -f predict_oosd.sql
 -- ~/mlp/predict_oosd.sql
 --
 -- I use this script to predict outcomes of
--- Out of sample observations with known outcomes.
+-- out-of-sample observations with known outcomes.
 -- Then I report on the accuracy of the predictions.
 DROP TABLE oosd_predictions;
 DROP TABLE
