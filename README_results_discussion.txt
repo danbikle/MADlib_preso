@@ -23,6 +23,8 @@ This is an unusually large gain:
 
 http://www.simplestockinvesting.com/SP500-historical-real-total-returns.htm
 
+http://realestateresearch.frbatlanta.org/rer/2013/06/is-investing-in-housing-really-losing-proposition.html
+
 So, when the market returns to more usual behavior,
 the model should still be sending out negative predictions.
 
