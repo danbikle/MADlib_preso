@@ -11,6 +11,8 @@ The title of the presentation is:
 The basic steps are listed below:
 
   - mkdir ~/mlp/
+  - copy https://github.com/danbikle/MADlib_preso into ~/mlp/
+    using git or unzip 
   - mkdir ~/tmp/
   - cd    ~/mlp/
   - Download data from Yahoo
