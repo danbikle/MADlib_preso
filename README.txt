@@ -15,12 +15,24 @@ The basic steps are listed below:
     using git or unzip 
   - mkdir ~/tmp/
   - cd    ~/mlp/
-  - Download data from Yahoo
+
+  - Download data from Yahoo:
+    - ~/mlp/wgetit.bash
+
   - Create a table to hold the data
   - Load the data into the table
+    - ~/mlp/load_mydata.bash
+
   - Build some vectors for MADlib
+    - ~/mlp/cr_vectors.sql
+
   - Train MADlib 
+    - ~/mlp/train_madlib.sql
+
   - Let MADlib predict
+    - ~/mlp/predict_oosd.sql
+
   - Report on predictions
+    - ~/mlp/oosd_histo.sql
 
 If you have questions, e-me: dan.bikle@gmail.com
