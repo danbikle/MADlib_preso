@@ -1,0 +1,71 @@
+~/mlp/oosd_histo.txt
+
+This file contains output from oosd_histo.sql
+
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ ./psqlmad.bash -f oosd_histo.sql 
+--
+-- ~/mlp/oosd_histo.sql
+--
+-- I use this script to aggregate prediction results for a histogram.
+SELECT ROUND(AVG(tomorrows_n1dg),5) aggregate_avg FROM oosd_predictions;
+ aggregate_avg 
+---------------
+       0.00069
+(1 row)
+
+SELECT
+'Under 0.5' probability
+,ROUND(AVG(tomorrows_n1dg),5)          myavg
+,ROUND(AVG(tomorrows_n1dg)/0.00069,5) myavg_over_agg_avg 
+,COUNT(probability)                   observation_count
+FROM oosd_predictions
+WHERE probability < 0.50
+;
+ probability |  myavg  | myavg_over_agg_avg | observation_count 
+-------------+---------+--------------------+-------------------
+ Under 0.5   | 0.00019 |            0.27528 |               211
+(1 row)
+
+SELECT
+'Over 0.5' probability
+,ROUND(AVG(tomorrows_n1dg),5)          myavg
+,ROUND(AVG(tomorrows_n1dg)/0.00069,5) myavg_over_agg_avg 
+,COUNT(probability)                   observation_count
+FROM oosd_predictions
+WHERE probability >= 0.50
+;
+ probability |  myavg  | myavg_over_agg_avg | observation_count 
+-------------+---------+--------------------+-------------------
+ Over 0.5    | 0.00238 |            3.44580 |                64
+(1 row)
+
+SELECT
+ROUND(probability::NUMERIC,2)         probability
+,ROUND(AVG(tomorrows_n1dg),5)         myavg
+,ROUND(AVG(tomorrows_n1dg)/0.00069,5) myavg_over_agg_avg 
+,COUNT(probability)                   observation_count
+FROM oosd_predictions
+GROUP BY ROUND(probability::NUMERIC,2)
+ORDER BY ROUND(probability::NUMERIC,2)
+;
+ probability |  myavg   | myavg_over_agg_avg | observation_count 
+-------------+----------+--------------------+-------------------
+        0.42 | -0.00226 |           -3.27435 |                 1
+        0.45 |  0.00522 |            7.56312 |                 2
+        0.46 |  0.00156 |            2.26309 |                 9
+        0.47 |  0.00070 |            1.01729 |                25
+        0.48 | -0.00002 |           -0.02204 |                70
+        0.49 |  0.00004 |            0.06430 |                73
+        0.50 |  0.00122 |            1.76361 |                51
+        0.51 |  0.00125 |            1.80625 |                22
+        0.52 |  0.00347 |            5.02254 |                12
+        0.53 |  0.00056 |            0.80737 |                 6
+        0.55 |  0.00560 |            8.11150 |                 3
+        0.56 | -0.00207 |           -3.00043 |                 1
+(12 rows)
+
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
+dan@madlibsvm ~/mlp $ 
